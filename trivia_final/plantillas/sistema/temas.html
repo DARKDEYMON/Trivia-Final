@@ -1,0 +1,25 @@
+{% extends "bases/base_principal.html" %}
+
+{% block title %} 
+	Temas
+{% endblock %}
+
+{% block content %}
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12">
+					{% load bootstrap3 %}
+
+				    {# Display a form #}
+
+				    <form action="" method="post">
+				        {% csrf_token %}
+				        {% bootstrap_form form_tema %}
+				        {% buttons %}
+				            <button type="submit" class="btn btn-primary">Insertar</button>
+				        {% endbuttons %}
+				    </form>
+				</div>
+			</div>
+		</div>
+{% endblock %}

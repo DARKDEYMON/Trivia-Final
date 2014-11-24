@@ -1,0 +1,61 @@
+{% extends "bases/base_principal.html" %}
+
+{% block title %} 
+    Respuestas
+{% endblock %}
+
+{% block content %}
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+
+                    <table class="table table-hover table-responsive table-condensed">
+                            <tr class="active">
+                                <th>
+                                    <h3 style="font-size:x-large"><span style="font-weight:bolder">Pregunta</span></h3>
+                                </th>
+                                <th>
+                                    <h3 style="font-size:x-large"><span style="font-weight:bolder">Temas</span></h3>
+                                </th>
+                                <th>
+                                    <h3 style="font-size:x-large"><span style="font-weight:bolder">Pregunta Lista</span></h3>
+                                </th>
+
+                                <th></th>
+                            </tr>
+                        
+                            {% for i in preguntas %}
+                            <tr>
+                                <td class="col-lg-2">
+                                    <span style="font-size: 17px;"> {{ i.pregunta }}</span>
+                                </td>
+                                <td class="col-lg-1">
+                                    <span style="font-size: 17px;"> </span>
+                                </td>
+                                <td class="col-lg-2">
+                                    <span style="font-size: 17px;"> </span>
+                                </td>
+
+                                <td class="col-lg-3">
+                                    <a href="user/edicion/{{i.id}}">
+                                    <button type="button" class="btn btn-warning col-lg-3" onclick="location.href='@Url.Action("Edit", "Movie", new { id = item.movieID })';return false;"><span style="margin-right: 5px" class="glyphicon glyphicon-pencil"></span>Editar</button></a>
+                                    
+                                    <a href="user/edicion/{{i.id}}">
+                                    <button type="button" class="btn btn-info col-lg-4 col-lg-offset-1" onclick="location.href='@Url.Action("Details", "Movie", new { id = item.movieID })';return false;"><span style="margin-right: 5px" class="glyphicon glyphicon-align-justify"></span>Respuestas</button></a>
+                                    
+                                    <a href="user/edicion/{{i.id}}">
+                                    <button type="button" class="btn btn-danger col-lg-3 col-lg-offset-1" onclick="location.href='@Url.Action("Delete", "Movie", new { id = item.movieID })' ;return false;"><span style="margin-right: 5px" class="glyphicon glyphicon-trash"></span>Borrar</button></a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                    </table>
+
+                </div>
+            </div>
+        </div>
+{% endblock %}
+
+
+
+
+ 

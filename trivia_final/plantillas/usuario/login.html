@@ -1,0 +1,30 @@
+{% extends "bases/base_principal.html" %}
+
+{% block title %} 
+	Login
+{% endblock %}
+
+{% block content %}
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12">
+					{% if estado %}
+						<div class="alert alert-danger" role="alert">{{mensaje}} <span class="glyphicon glyphicon-warning-sign"></span></div>
+					{% endif %}
+
+					{% load bootstrap3 %}
+
+				    {# Display a form #}
+
+				    <form action="" method="post">
+				        {% csrf_token %}
+				        {% bootstrap_form form_login %}
+				        {{ form_chaptcha }}
+				        {% buttons %}
+				            <button type="submit" class="btn btn-primary">Ingresar</button>
+				        {% endbuttons %}
+				    </form>
+				</div>
+			</div>
+		</div>
+{% endblock %}

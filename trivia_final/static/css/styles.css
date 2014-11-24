@@ -1,0 +1,28 @@
+footer{
+	background-color: #f5f5f5;
+	margin: 0px;
+	margin-left: 0px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+.cuerpo{
+	margin-top: 60px;
+	margin-left: 20px;
+}
+html{
+	margin-left: 0px;
+}
+body{
+	margin-top: 60px;
+	background-image: url(../images/Desert.jpg);
+	background-repeat: no-repeat;
+	/*fixed matiene alineada la imagen*/
+	background-attachment: fixed;
+ 	background-position: center;
+	 /*cover pone el dibujo en toda la pantalla*/
+	background-size: cover;
+}
+.registro{
+	margin-top: 200px;
+}

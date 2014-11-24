@@ -1,0 +1,40 @@
+<div class="container navbar-fixed-top">
+	<div class="row">
+		<nav class="navbar navbar-default" role="navigation">
+		  <div class="container-fluid">
+		    <!-- Brand and toggle get grouped for better mobile display -->
+		    <div class="navbar-header">
+		      <a class="navbar-brand" href="#">Trivia</a>
+		      {% if user.is_authenticated %}
+		      <a class="navbar-brand" href="#">Bienbenido: {{ user.get_username }}</a>
+		      {% endif %}
+		    </div>
+
+		    <!-- Collect the nav links, forms, and other content for toggling -->
+		    <div class="container-fluid">
+		      <ul class="nav navbar-nav navbar-right">
+		        <li class="active"><a href="{% url 'home' %}">Home</a></li>
+		        {% if not user.is_authenticated %}
+		        	<li><a href="{% url 'login' %}">Login</a></li>
+					<li><a href="{% url 'registro' %}">Registro</a></li>
+				{% else %}
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Opciones <span class="caret"></span></a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="{% url 'preguntas' %}">Crear Pregunta</a></li>
+								<li><a href="{% url 'respuestas' %}">Crear Respuestas</a></li>
+								<li class="divider"></li>
+								<li><a href="{% url 'lista_preguntas' %}">Lista de Preguntas</a></li>
+					        	<li><a href="{% url 'tema' %}">Crear Tema</a></li>
+					        	<li><a href="{% url 'actualisar' %}">Actualisar</a></li>
+					        	<li class="divider"></li>
+					        	<li><a href="{% url 'logout' %}">Salir</a></li>
+					    	</ul>
+					   </li>
+				{% endif %}
+		      </ul>
+		    </div><!-- /.navbar-collapse -->
+		  </div><!-- /.container-fluid -->
+		</nav>
+	</div>
+</div>

@@ -13,5 +13,5 @@ urlpatterns = patterns('',
     url(r'^crear_pregunta/', preguntas_view, name="preguntas"),
     url(r'^crear_respuestas/', respuestas_view, name="respuestas"),
     url(r'^lista_preguntas/', lista_preguntas_view, name="lista_preguntas"),
-    url(r'^edicion/(?P<id>.+?)/$', lista_preguntas_edicion_view, name="edicion"),
+    url(r'^eliminar/(?P<id>.+?)/$', lista_preguntas_eliminar_view, name="eliminar"),
 )

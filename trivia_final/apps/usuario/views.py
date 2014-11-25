@@ -18,11 +18,12 @@ def lista_preguntas_view(request):
 			raise Http404("page no exist")
 	else:
 		return HttpResponse("no esta logeado")
-def lista_preguntas_edicion_view(request,id):
+def lista_preguntas_eliminar_view(request,id):
 	if request.user.is_authenticated():
 		aux=preguntas.objects.filter(id=id)
 		if len(aux)!=0:
-			return render_to_response("sistema/edicion_preguntas.html",{"pregunta":aux[0]},context_instance=RequestContext(request))
+			preguntas.objects.get(id=id).delete()
+			return render_to_response("sistema/eliminar_preguntas.html",{"pregunta":aux[0]},context_instance=RequestContext(request))
 		else:
 			raise Http404("page no exist")
 	else:
@@ -53,9 +54,11 @@ def preguntas_view(request):
 		if request.method=="POST":
 			auxform=formulario_preguntas(request.POST)
 			if auxform.is_valid():
+				#pdb.set_trace()
 				post= auxform.save(commit=False)
 				post.username=usuario
 				post.save()
+				auxform.save_m2m()
 				return HttpResponseRedirect("/")
 		else:
 			auxform=formulario_preguntas()

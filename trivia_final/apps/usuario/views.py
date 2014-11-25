@@ -36,6 +36,11 @@ def respuestas_view(request):
 				post=auxform.save(commit=False)
 				post.username=usuario
 				post.save()
+				#pdb.set_trace()
+				t1=request.POST['preguntas']
+				t2 = preguntas.objects.get(id=t1)
+				t2.lista=True
+				t2.save()
 				return HttpResponseRedirect("/")
 		else:
 			auxform=formulario_respuestas()

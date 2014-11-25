@@ -21,7 +21,7 @@ class formulario_temas(ModelForm):
 class formulario_preguntas(ModelForm):
 	class Meta:
 		model=preguntas
-		exclude=['username']
+		exclude=['username','lista']
 class formulario_respuestas(ModelForm):
 	class Meta:
 		model=respuestas

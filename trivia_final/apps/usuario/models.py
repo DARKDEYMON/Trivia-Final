@@ -25,6 +25,7 @@ class preguntas(models.Model):
 	username=models.ForeignKey(User)
 	temas=models.ManyToManyField(temas)
 	pregunta=models.CharField(max_length=100, null=True, unique=True)
+	lista=models.BooleanField(default=False)
 	def __unicode__(self):
 		return self.pregunta
 	class Meta:
@@ -38,6 +39,8 @@ class respuestas(models.Model):
 	respuesta_opcional_2=models.CharField(max_length=100, null=False)
 	respuesta_opcional_3=models.CharField(max_length=100, null=False)
 	respuesta_opcional_4=models.CharField(max_length=100, null=False)
+	def __unicode__(self):
+		return "Respuesta a: "+self.preguntas.pregunta
 	class Meta:
 		verbose_name = _('Respuestas')
 		verbose_name_plural = _('Respuestas')

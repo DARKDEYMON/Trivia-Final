@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-
+var io=require("socket.io");
 var app = express();
 
 // view engine setup
@@ -58,3 +58,16 @@ app.use(function(err, req, res, next) {
 
 
 module.exports = app;
+
+
+var http = require('http');
+var PORT=4000;
+var server = http.createServer().listen(PORT);
+console.log("socket io cooriendo en el puerto:"+ PORT);
+var sockets =io(server);
+sockets.on('connection',  function(socket) {
+    socket.on('test', function(data) {
+        socket.emit("test",{"conectado":"coneccion exitosa!!!"});
+        return;
+    });
+});

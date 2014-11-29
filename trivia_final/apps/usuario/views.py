@@ -6,6 +6,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login , authenticate , logout
 from django.contrib.auth.models import User
 from models import *
+from django.contrib.sessions.backends.db import SessionStore
 import pdb
 # Create your views here.
 def lista_preguntas_view(request):
@@ -115,6 +116,14 @@ def login_view(request):
 			if acceso is not None:
 				del request.session['con']
 				login(request,acceso)
+				#cookie de secion inicia aca para node js
+				cookie=SessionStore()
+				cookie["name"]=usuario
+				cookie["estado"]="conectado"
+				cookie.save()
+				#request.COOKIES.get('idkey', cookie.session_key)
+				request.session["idkey"]=cookie.session_key
+				print cookie.session_key
 				return HttpResponseRedirect("/")
 		else:
 			request.session['con']=request.session['con']+1
@@ -132,6 +141,11 @@ def login_view(request):
 		auxform=AuthenticationForm()
 	return render_to_response("usuario/login.html",{"form_login":auxform},context_instance=RequestContext(request))
 def logout_view(request):
+	cookie=SessionStore(session_key=request.session["idkey"])
+	cookie["estado"]="desconectado"
+	#del request.cookie["idkey"]
+	cookie["name"]=""
+	cookie.save()
 	logout(request)
 	return HttpResponseRedirect("/")
 def actualisar_perfil_view(request):

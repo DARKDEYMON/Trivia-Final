@@ -41,6 +41,8 @@ INSTALLED_APPS = (
     'trivia_final.apps.principal',
     'bootstrap3',
     'captcha',
+    #control de axeso para ajax
+    'corsheaders',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -51,6 +53,9 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #control de axeso para ajax
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 )
 
 ROOT_URLCONF = 'trivia_final.urls'
@@ -63,8 +68,12 @@ WSGI_APPLICATION = 'trivia_final.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'trivia',
+        'USER': 'root',
+        'PASSWORD': '123456789',
+        'HOST': '127.0.0.1',
+        'PORT':'3305',
     }
 }
 
@@ -93,3 +102,10 @@ STATICFILES_DIRS=(os.path.join(RUTA_PROYECTO,"static"),)
 
 RECAPTCHA_PRIVATE_KEY = '6LfYY_0SAAAAAGAzqFrYUwpqtkFWiUK5i7BFnOk7'
 RECAPTCHA_PUBLIC_KEY = '6LfYY_0SAAAAAIE4IycUh4-ndkehYXKfiXw275Ta'
+
+#SESSION_COOKIE_HTTPONLY = False
+SESSION_COOKIE_HTTPONLY = False
+
+CORS_ORIGIN_WHITELIST = (
+    'http://127.0.0.1:4000/'
+)

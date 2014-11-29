@@ -60,14 +60,43 @@ app.use(function(err, req, res, next) {
 module.exports = app;
 
 
-var http = require('http');
+var cookie_reader = require('cookie');
+
 var PORT=4000;
-var server = http.createServer().listen(PORT);
-console.log("socket io cooriendo en el puerto:"+ PORT);
+var server=app.listen(PORT,function(){
+    console.log("Servidor y socket corriendo en "+PORT);
+});
+/*
+io.use(function(socket, next){
+    if (socket.request.headers.cookie)
+        return next();
+    next(new Error('Authentication error'));
+});*/
+
 var sockets =io(server);
+
 sockets.on('connection',  function(socket) {
     socket.on('test', function(data) {
+        //console.log(socket.handshake);
         socket.emit("test",{"conectado":"coneccion exitosa!!!"});
         return;
     });
 });
+
+
+/*
+var mysql      = require('mysql');
+var connection = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'root',
+  password : '123456789',
+  port     : '3305',
+  database : 'information_schema'
+});
+
+connection.connect();
+connection.query('select * from INNODB_SYS_FOREIGN', function(err, rows, fields) {
+  if (err) throw err;
+
+  console.log('The solution is: ', rows[0]);
+});*/

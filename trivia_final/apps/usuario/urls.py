@@ -14,4 +14,6 @@ urlpatterns = patterns('',
     url(r'^crear_respuestas/', respuestas_view, name="respuestas"),
     url(r'^lista_preguntas/', lista_preguntas_view, name="lista_preguntas"),
     url(r'^eliminar/(?P<id>.+?)/$', lista_preguntas_eliminar_view, name="eliminar"),
+    url(r'^editar/(?P<id>.+?)/$', lista_preguntas_modificar_pregunta_view, name="editar"),
+    url(r'^editar_respuesta/(?P<id>.+?)/$', lista_preguntas_modificar_respuesta_view, name="editarResp"),
 )

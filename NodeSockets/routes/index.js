@@ -7,7 +7,7 @@ var s=session();
 /* GET home page. */
 var sesiones=Array();
 router.get("/django/:id?",function(req,res){
-	//console.log(req.params.id);
+	console.log(req.params.id);
 
 	s.getSession(req.params.id,function(s){
 		

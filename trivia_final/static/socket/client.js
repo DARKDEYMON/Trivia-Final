@@ -32,7 +32,7 @@ $(function($) {
             url: 'http://127.0.0.1:4000/django/'+idkey,
             headers: { 'Access-Control-Allow-Origin': '*' },
             type: 'GET',
-            dataType: 'html', //jsomp
+            dataType: 'html', //jsonp
             data: {},
         })
         .done(function(html) {

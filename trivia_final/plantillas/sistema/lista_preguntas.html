@@ -37,14 +37,14 @@
                                 </td>
 
                                 <td class="col-lg-3">
-                                    <a href="/user/edicion/{{i.id}}">
-                                    <button type="button" class="btn btn-warning col-lg-3" onclick="location.href='@Url.Action("Edit", "Movie", new { id = item.movieID })';return false;"><span style="margin-right: 5px" class="glyphicon glyphicon-pencil"></span>Editar</button></a>
+                                    <a href="/user/editar/{{i.id}}">
+                                    <button type="button" class="btn btn-warning col-lg-3" onclick=""><span style="margin-right: 5px" class="glyphicon glyphicon-pencil"></span>Editar</button></a>
                                     
                                     <a href="/user/editar_respuesta/{{i.id}}">
-                                    <button type="button" class="btn btn-info col-lg-4 col-lg-offset-1" onclick="location.href='@Url.Action("Details", "Movie", new { id = item.movieID })';return false;"><span style="margin-right: 5px" class="glyphicon glyphicon-align-justify"></span>E. Respuestas</button></a>
+                                    <button type="button" class="btn btn-info col-lg-4 col-lg-offset-1" onclick=""><span style="margin-right: 5px" class="glyphicon glyphicon-align-justify"></span>E. Respuestas</button></a>
                                     
                                     <a href="/user/eliminar/{{i.id}}">
-                                    <button type="button" class="btn btn-danger col-lg-3 col-lg-offset-1" onclick="location.href='@Url.Action("Delete", "Movie", new { id = item.movieID })' ;return false;"><span style="margin-right: 5px" class="glyphicon glyphicon-trash"></span>Borrar</button></a>
+                                    <button type="button" class="btn btn-danger col-lg-3 col-lg-offset-1" onclick=""><span style="margin-right: 5px" class="glyphicon glyphicon-trash"></span>Borrar</button></a>
                                 </td>
                             </tr>
                             {% endfor %}

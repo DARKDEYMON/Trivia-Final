@@ -28,7 +28,9 @@
 					        	<li><a href="{% url 'tema' %}">Crear Tema</a></li>
 					        	<li class="divider"></li>
 					        	<li><a href="{% url 'actualisar' %}">Actualisar Perfil</a></li>
+					        	{% if user.is_staff %}
 					        	<li><a href="{% url 'lista_preguntas' %}">Lista de Preguntas</a></li>
+					        	{% endif %}
 					        	<li class="divider"></li>
 					        	<li><a href="{% url 'logout' %}">Salir</a></li>
 					    	</ul>

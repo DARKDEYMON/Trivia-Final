@@ -9,24 +9,84 @@ from models import *
 from django.contrib.sessions.backends.db import SessionStore
 import pdb
 # Create your views here.
-def lista_preguntas_view(request):
+def lista_preguntas_modificar_respuesta_view(request,id):
 	if request.user.is_authenticated():
-		aux=preguntas.objects.filter()
-		#pdb.set_trace()
-		if len(aux)!=0:
-			return render_to_response("sistema/lista_preguntas.html",{"preguntas":aux},context_instance=RequestContext(request))
+		if request.user.is_staff:
+			datospre=preguntas.objects.get(id=id)
+			#pdb.set_trace()
+			aux=respuestas.objects.filter(preguntas=datospre)
+			if len(aux)!=0:
+				if request.method=="POST":
+					#usuario=request.user
+					aux1=respuestas.objects.get(preguntas=datospre)
+					auxform=formulario_respuestas_modi(request.POST,instance=aux1)
+					#pdb.set_trace()
+					if auxform.is_valid():	
+						post=auxform.save(commit=False)
+						post.username=request.user
+						post.save()
+						#auxform.save_m2m()
+						return HttpResponseRedirect("/")
+				else:
+					auxform=formulario_respuestas_modi()
+				#datosadiuser=User.get(username=request.user)
+				return render_to_response("sistema/modificar_respuesta.html",{"resp":aux[0],"form_modi":auxform},context_instance=RequestContext(request))
+			else:
+				raise Http404("page no exist")
 		else:
 			raise Http404("page no exist")
 	else:
 		return HttpResponse("no esta logeado")
+def lista_preguntas_modificar_pregunta_view(request,id):
+	if request.user.is_authenticated():
+		if request.user.is_staff:
+			aux=preguntas.objects.filter(id=id)
+			if len(aux)!=0:
+				if request.method=="POST":
+					#usuario=request.user
+					datospre=preguntas.objects.get(id=id)
+					auxform=formulario_preguntas(request.POST,instance=datospre)
+					#pdb.set_trace()
+					if auxform.is_valid():	
+						#pdb.set_trace()
+						auxform.save()
+						#auxform.save_m2m()
+						return HttpResponseRedirect("/")
+				else:
+					auxform=formulario_preguntas()
+				#datosadiuser=User.get(username=request.user)
+				return render_to_response("sistema/modificar_pregunta.html",{"preguntas":aux[0],"form_modi":auxform},context_instance=RequestContext(request))
+			else:
+				raise Http404("page no exist")
+		else:
+				raise Http404("page no exist")
+	else:
+		return HttpResponse("no esta logeado")
+def lista_preguntas_view(request):
+	if request.user.is_authenticated():
+		if request.user.is_staff:
+			aux=preguntas.objects.filter()
+			#pdb.set_trace()
+			if len(aux)!=0:
+				return render_to_response("sistema/lista_preguntas.html",{"preguntas":aux},context_instance=RequestContext(request))
+			else:
+				raise Http404("page no exist")
+		else:
+				raise Http404("page no exist")
+
+	else:
+		return HttpResponse("no esta logeado")
 def lista_preguntas_eliminar_view(request,id):
 	if request.user.is_authenticated():
-		aux=preguntas.objects.filter(id=id)
-		if len(aux)!=0:
-			preguntas.objects.get(id=id).delete()
-			return render_to_response("sistema/eliminar_preguntas.html",{"pregunta":aux[0]},context_instance=RequestContext(request))
+		if request.user.is_staff:
+			aux=preguntas.objects.filter(id=id)
+			if len(aux)!=0:
+				preguntas.objects.get(id=id).delete()
+				return render_to_response("sistema/eliminar_preguntas.html",{"pregunta":aux[0]},context_instance=RequestContext(request))
+			else:
+				raise Http404("page no exist")
 		else:
-			raise Http404("page no exist")
+				raise Http404("page no exist")
 	else:
 		return HttpResponse("no esta logeado")
 def respuestas_view(request):

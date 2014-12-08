@@ -26,9 +26,15 @@
   <body>
     
     {% include "includes/navegador.html" %}
-    <div id="contenido">
-    {% block content %}
-    {% endblock %}
+    <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div id="contenido">
+                    {% block content %}
+                    {% endblock %}
+                    </div>
+                 </div>
+            </div>
     </div>
     {% include "includes/footer.html" %}
     

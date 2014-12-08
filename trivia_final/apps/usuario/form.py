@@ -7,9 +7,12 @@ from models import *
 
 from captcha.fields import ReCaptchaField
 
+class formulario_partida(ModelForm):
+	class Meta:
+		model=partida
+		exclude=['acabada']
 class formulario_capcha(forms.Form):
 	captcha = ReCaptchaField(attrs={'theme' : 'clean'})
-
 class formulario_de_perfil(ModelForm):
 	class Meta:
 		model=datos_adicionales_usuario

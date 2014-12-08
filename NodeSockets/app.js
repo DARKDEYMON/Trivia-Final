@@ -1,4 +1,17 @@
 var express = require('express');
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
+
+var app = express();
+
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true
+}));
+app.use(cookieParser());
+
+
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');

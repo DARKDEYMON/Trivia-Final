@@ -1,0 +1,21 @@
+{% extends "bases/base_principal.html" %}
+
+{% block title %} 
+	Actualisar
+{% endblock %}
+
+{% block content %}
+		
+					{% load bootstrap3 %}
+
+				    {# Display a form #}
+
+				    <form action="" method="post" enctype="multipart/form-data">
+				        {% csrf_token %}
+				        {% bootstrap_form form %}
+				        {% buttons %}
+				            <button type="submit" class="btn btn-primary">Actualisar</button>
+				        {% endbuttons %}
+				    </form>
+
+{% endblock %}

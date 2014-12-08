@@ -1,4 +1,5 @@
 from django.conf.urls import patterns, include, url
+from django.contrib.auth.forms import AdminPasswordChangeForm
 from views import *
 
 urlpatterns = patterns('',
@@ -16,4 +17,6 @@ urlpatterns = patterns('',
     url(r'^eliminar/(?P<id>.+?)/$', lista_preguntas_eliminar_view, name="eliminar"),
     url(r'^editar/(?P<id>.+?)/$', lista_preguntas_modificar_pregunta_view, name="editar"),
     url(r'^editar_respuesta/(?P<id>.+?)/$', lista_preguntas_modificar_respuesta_view, name="editarResp"),
+    url(r'password_change/$', password_change,name="pass"),
+    url(r'crear_sala/$', crear_sal_view,name="sala"),
 )

@@ -7,8 +7,43 @@ from django.contrib.auth import login , authenticate , logout
 from django.contrib.auth.models import User
 from models import *
 from django.contrib.sessions.backends.db import SessionStore
+
+from django.contrib.auth.views import password_change
+from django.contrib.auth.forms import PasswordChangeForm
 import pdb
 # Create your views here.
+def crear_sal_view(request):
+	if request.user.is_authenticated():
+		if request.method == "POST":
+			auxform=formulario_partida(request.POST)
+			if auxform.is_valid():
+				auxform.save()
+				auxform.save_m2m()
+				return render_to_response("sistema/crear_sala.html",{"form_rom":auxform,"redi":True},context_instance=RequestContext(request))
+		else:
+			auxform=formulario_partida()
+		return render_to_response("sistema/crear_sala.html",{"form_rom":auxform,"redi":False},context_instance=RequestContext(request))
+	else:
+		raise Http404("page no exist")
+def password_change(request,template_name='usuario/cambio_pass.html', post_change_redirect=None, password_change_form=PasswordChangeForm,current_app=None, extra_context=None):
+	if request.user.is_authenticated():
+	    if request.method == "POST":
+	        form = password_change_form(user=request.user, data=request.POST)
+	        if form.is_valid():
+	            form.save()
+	            # Updating the password logs out all other sessions for the user
+	            # except the current one if
+	            # django.contrib.auth.middleware.SessionAuthenticationMiddleware
+	            # is enabled.
+	            #update_session_auth_hash(request, form.user)
+	            #cookie=SessionStore(session_key=request.session["idkey"])
+				#cookie["estado"]="desconectado"
+	            return HttpResponseRedirect("/")
+	    else:
+	        form = password_change_form(user=request.user)
+	    return render_to_response("usuario/cambio_pass.html",{"form":form},context_instance=RequestContext(request))
+	else:
+		raise Http404("page no exist")
 def lista_preguntas_modificar_respuesta_view(request,id):
 	if request.user.is_authenticated():
 		if request.user.is_staff:

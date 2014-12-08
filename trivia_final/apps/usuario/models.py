@@ -51,3 +51,16 @@ class rate(models.Model):
 	class Meta:
 		verbose_name = _('Rate')
 		verbose_name_plural = _('Rate')
+class partida(models.Model):
+	b=((10,10),(20,20),(30,30))
+	nombre_de_partida=models.CharField(max_length=100, null=False)
+	max_jugadores=models.IntegerField(null=False)
+	temas=models.ManyToManyField(temas, null=False)
+	num_preguntas=models.IntegerField(null=False)
+	tiempo_maximo=models.IntegerField(null=False, choices=b)
+	acabada=models.BooleanField(default=False)
+	def __unicode__(self):
+		return self.nombre_de_partida
+	class Meta:
+		verbose_name = _('Partida')
+		verbose_name_plural = _('Partidas')

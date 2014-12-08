@@ -107,5 +107,7 @@ RECAPTCHA_PUBLIC_KEY = '6LfYY_0SAAAAAIE4IycUh4-ndkehYXKfiXw275Ta'
 SESSION_COOKIE_HTTPONLY = False
 
 CORS_ORIGIN_WHITELIST = (
-    'http://127.0.0.1:4000/'
+    'http://127.0.0.1:4000/',
+    'http://127.0.0.1:8000/',
+    '*',
 )

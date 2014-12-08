@@ -1,0 +1,26 @@
+form(action='', method='post', enctype='multipart/form-data')
+  .form-group
+    label.control-label(for='id_nombre_de_partida') Nombre de partida
+    input#id_nombre_de_partida.form-control(maxlength='100', name='nombre_de_partida', placeholder='Nombre de partida', required='required', title='', type='text')
+  .form-group
+    label.control-label(for='id_max_jugadores') Max jugadores
+    input#id_max_jugadores.form-control(name='max_jugadores', placeholder='Max jugadores', required='required', title='', type='number')
+  .form-group
+    label.control-label(for='id_temas') Temas
+    select#id_temas.form-control(multiple='multiple', name='temas', required='required', title=' Mantenga presionado ')
+      option(value='1') musica
+      option(value='2') oratoria
+    span.help-block
+      | Mantenga presionado "Control", o "Command" en un Mac, para seleccionar más de una opción.
+  .form-group
+    label.control-label(for='id_num_preguntas') Num preguntas
+    input#id_num_preguntas.form-control(name='num_preguntas', placeholder='Num preguntas', required='required', title='', type='number')
+  .form-group
+    label.control-label(for='id_tiempo_maximo') Tiempo maximo
+    select#id_tiempo_maximo.form-control(name='tiempo_maximo', required='required', title='')
+      option(value='', selected='selected') ---------
+      option(value='10') 10
+      option(value='20') 20
+      option(value='30') 30
+  .form-group
+    button.btn.btn-primary(type='submit') Crear

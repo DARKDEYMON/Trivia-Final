@@ -1,0 +1,19 @@
+each val in partidas
+  div.panel.price.panel-blue
+    div.panel-heading.arrow_box.text-center
+      h3 Trivia Juego
+    div.panel-body.text-center
+      p.lead(style='font-size:40px')
+        strong Nombre de Partida: #{val.nombre_de_partida}
+    ul.list-group.list-group-flush.text-center
+      li.list-group-item
+        i.icon-ok.text-info
+        | Cantidad de Jugadores Maxima: #{val.max_jugadores}
+      li.list-group-item
+        i.icon-ok.text-info
+        | Numero de Preguntas: #{val.num_preguntas}
+      li.list-group-item
+        i.icon-ok.text-info
+        | Tiempo Maximo: #{val.tiempo_maximo} Seg
+    div.panel-footer
+      a.btn.btn-lg.btn-block.btn-info(href='#{val.id}') Entrar!

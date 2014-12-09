@@ -1,32 +1,28 @@
-$(function($) {
-    console.log( "ready!" );
-    var socket = io('http://localhost:4000');
-    socket.emit("test",{});
-    socket.on('test', function(response) {
-    	console.log(response.conectado);
-	});
-    $("#sala_nueva").click(function(event) {
-        console.log("sala_nueva!!"); 
+$( document ).ready(function() {
+    $.createRom=function(l)
+    {
         var cookies=document.cookie;
         var comienzo=cookies.indexOf("sessionid");
         console.log(leerCookie("sessionid"));
-        ajaxresponse("django",leerCookie("sessionid"));
+        ajaxresponse("sala",l);
+    };
+    
+    console.log( "ready!" );
+    var socket = io('http://localhost:4000');
+    socket.emit("test",{});
+    $('body').on('click', '#entrar', function(){
+        console.log("entro");
+        console.log(this);
+        console.log($(this).attr("val"));
+        ajaxresponse("sala",$(this).attr("val"));
     });
 	$("#jugar").click(function(event) {
 		console.log("clickeado!!"); 
 		var cookies=document.cookie;
 		var comienzo=cookies.indexOf("sessionid");
 		console.log(leerCookie("sessionid"));
-        ajaxresponse("django",leerCookie("sessionid"));
+        ajaxresponse("django","");
 	});
-    /*
-    $("#crear").click(function(event) {
-        console.log("clickeado!!"); 
-        var cookies=document.cookie;
-        var comienzo=cookies.indexOf("sessionid");
-        console.log(leerCookie("sessionid"));
-        ajaxresponse("crear_partida","");
-    });*/
 	var leerCookie=function(nombre) {
         var lista = document.cookie.split(";");
         micookie="";
@@ -41,6 +37,32 @@ $(function($) {
         var valor = micookie.substring(igual+1);
         return valor;
     };
+    var conectar=function()
+    {
+        l=leerCookie("sessionid");
+        console.log(l);
+        $.ajax({
+            url: 'http://127.0.0.1:4000/conectar/'+l,
+            crossDomain: true,
+           // xhrFields: {
+             //     withCredentials: true
+              // },
+            //headers: { 'Access-Control-Allow-Origin': '*' },
+            type: 'GET',
+            dataType: 'html', //jsonp
+            data: {},
+        })
+        .done(function() {
+            console.log("Conectado !!!!");
+        })
+        .fail(function() {
+            console.log("error");
+        })
+        .always(function() {
+            console.log("complete");
+        });
+    };
+    conectar();
     var ajaxresponse=function(url,idkey)
     {
         $.ajax({
@@ -68,8 +90,5 @@ $(function($) {
         });
         
     };
-    var createRom=function()
-    {
-        console.log("si");
-    };
+    
 });

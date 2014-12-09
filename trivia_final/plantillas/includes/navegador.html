@@ -7,6 +7,8 @@
 		      <a class="navbar-brand" href="#">Trivia</a>
 		      {% if user.is_authenticated %}
 		      <a class="navbar-brand" href="#">Bienbenido: {{ user.get_username }}</a>
+		      <a class="navbar-brand" href="#"><img alt="Brand" height="25" src="{{ user.datos_adicionales_usuario.avatar.url_50x50}}"></a>
+		      
 		      {% endif %}
 		    </div>
 

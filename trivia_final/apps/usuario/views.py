@@ -17,9 +17,9 @@ def crear_sal_view(request):
 		if request.method == "POST":
 			auxform=formulario_partida(request.POST)
 			if auxform.is_valid():
-				auxform.save()
-				auxform.save_m2m()
-				return render_to_response("sistema/crear_sala.html",{"form_rom":auxform,"redi":True},context_instance=RequestContext(request))
+				h=auxform.save()
+				#auxform.save_m2m()
+				return render_to_response("sistema/crear_sala.html",{"form_rom":auxform,"redi":True,"sala":h.pk},context_instance=RequestContext(request))
 		else:
 			auxform=formulario_partida()
 		return render_to_response("sistema/crear_sala.html",{"form_rom":auxform,"redi":False},context_instance=RequestContext(request))

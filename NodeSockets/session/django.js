@@ -23,6 +23,14 @@ var django=function()
 				//res.render("saladechat",{title:"Sala"});
 				
 				query.get("django_session").where({session_key:jsonreal.idkey}).execute(function(rows){
+					try{
+						a=rows[0].session_data;//control de errors
+					}
+					catch(e){
+						callback(false);
+						return this;
+					}
+					
 					var data=new Buffer(rows[0].session_data, 'base64').toString('ascii');
 					//console.log(data);
 					var objson=data.split(":{");

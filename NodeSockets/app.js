@@ -69,6 +69,10 @@ app.use(function(err, req, res, next) {
     });
 });
 
+//aqui empiesa todo
+
+var session=require("./session/django");
+var s=session();
 
 module.exports = app;
 
@@ -92,6 +96,34 @@ sockets.on('connection',  function(socket) {
     socket.on('test', function(data) {
         //console.log(socket.handshake);
         socket.emit("test",{"conectado":"coneccion exitosa!!!"});
+        return;
+    });
+    socket.on('sala_juego', function(data) {
+        console.log(data.sala+"   sala socket  " +data.sessionid);
+        s.getSession(data.sessionid,function(s){
+            if(s===false)
+              return;
+            if(s.estado=="conectado")
+            {
+              //socket.disconnect();
+              socket.salas=data.sala;
+              socket.join(data.sala);
+
+              console.log(data.sala);
+            }
+        });
+        return;
+    });
+    socket.on('mensajes', function(data) {
+        //console.log(data.sala+"   sala socket  " +data.sessionid);
+        console.log(data.msn+"  mensaje");
+        s.getSession(data.sessionid,function(s){
+            if(s.estado=="conectado")
+            {
+              console.log(data.msn+"  mensaje  " +s.name);
+              sockets.to(socket.salas).emit("mensajes",{"msn":data.msn,"nick":s.name});
+            }
+        });
         return;
     });
 });

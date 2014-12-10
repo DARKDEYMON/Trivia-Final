@@ -64,3 +64,6 @@ class partida(models.Model):
 	class Meta:
 		verbose_name = _('Partida')
 		verbose_name_plural = _('Partidas')
+class jugadores_en_partida(models.Model):
+	partida=models.ForeignKey(partida)
+	user=models.ForeignKey(User)

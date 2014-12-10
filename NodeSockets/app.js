@@ -70,6 +70,15 @@ app.use(function(err, req, res, next) {
 });
 
 //aqui empiesa todo
+var mysql=require("./db/mysql");
+var query=new mysql({
+    host     : 'localhost',
+    user     : 'root',
+    password : '123456789',
+    port     : '3305',
+    database : 'trivia'
+});
+
 
 var session=require("./session/django");
 var s=session();
@@ -105,11 +114,30 @@ sockets.on('connection',  function(socket) {
               return;
             if(s.estado=="conectado")
             {
-              //socket.disconnect();
-              socket.salas=data.sala;
-              socket.join(data.sala);
+              query.get("usuario_partida").where({id:data.sala}).execute(function(rows){
+                  maximo_de_jugadores=rows[0].max_jugadores;
+                  query.get("usuario_jugadores_en_partida").where({partida_id:data.sala}).execute(function(rows1){
+                    if(rows1.length<maximo_de_jugadores)
+                    {
+                        query.get("auth_user").where({username:s.name}).execute(function(rows){
+                            id_us=rows[0].id;
+                            query.delete("usuario_jugadores_en_partida").where({user_id:id_us}).execute(function(l){//borra todo antes de meter un usuario
+                            });
+                            query.save("usuario_jugadores_en_partida",{partida_id:data.sala,user_id:id_us},function(r){
+                                socket.salas=data.sala;
+                                socket.join(data.sala);
 
-              console.log(data.sala);
+                                console.log("idsala: "+data.sala+" id_us:"+id_us);
+                            });
+                        });
+                    }
+                    else
+                    {
+                      return;//aqui si no hay espacio
+                    }
+                  });
+              });
+              
             }
         });
         return;

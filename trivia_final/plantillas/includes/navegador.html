@@ -34,6 +34,7 @@
 					        	<li><a href="{% url 'pass' %}">cambiar Password</a></li>
 					        	{% if user.is_staff %}
 					        	<li><a href="{% url 'lista_preguntas' %}">Lista de Preguntas</a></li>
+					        	<li><a href="{% url 'permisoslista' %}">Lista de Permisos</a></li>
 					        	{% endif %}
 					        	<li class="divider"></li>
 					        	<li><a href="{% url 'logout' %}">Salir</a></li>

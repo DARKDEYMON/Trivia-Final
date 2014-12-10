@@ -19,4 +19,7 @@ urlpatterns = patterns('',
     url(r'^editar_respuesta/(?P<id>.+?)/$', lista_preguntas_modificar_respuesta_view, name="editarResp"),
     url(r'password_change/$', password_change,name="pass"),
     url(r'crear_sala/$', crear_sal_view,name="sala"),
+    url(r'staff/(?P<id>.+?)/$', permisos_view,name="permisos"),
+    url(r'quitarstaf/(?P<id>.+?)/$', permisos_quitar_view,name="permisosquitar"),
+    url(r'lista_premisos/', permisos_lista_view,name="permisoslista"),
 )

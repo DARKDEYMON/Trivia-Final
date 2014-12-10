@@ -12,6 +12,41 @@ from django.contrib.auth.views import password_change
 from django.contrib.auth.forms import PasswordChangeForm
 import pdb
 # Create your views here.
+def permisos_quitar_view(request,id):
+	if request.user.is_authenticated():
+		if request.user.is_staff:
+			datospre=User.objects.get(id=id)
+			datospre.is_staff=False
+			print datospre.is_staff
+			datospre.save()
+			return render_to_response("sistema/staff_quitado.html",{},context_instance=RequestContext(request))
+		else:
+			raise Http404("page no exist")
+	else:
+		return HttpResponse("no esta logeado")
+def permisos_lista_view(request):
+	if request.user.is_authenticated():
+		if request.user.is_staff:
+			aux=aux=User.objects.filter(is_superuser=0)
+			if len(aux)!=0:
+				return render_to_response("sistema/lista_user.html",{"usuario":aux},context_instance=RequestContext(request))
+			else:
+				return Http404("Vacio")
+		else:
+			raise Http404("page no exist")
+	else:
+		return HttpResponse("no esta logeado")
+def permisos_view(request,id):
+	if request.user.is_authenticated():
+		if request.user.is_staff:
+			datospre=User.objects.get(id=id)
+			datospre.is_staff=True
+			datospre.save()
+			return render_to_response("sistema/staff.html",{},context_instance=RequestContext(request))
+		else:
+			raise Http404("page no exist")
+	else:
+		return HttpResponse("no esta logeado")
 def crear_sal_view(request):
 	if request.user.is_authenticated():
 		if request.method == "POST":

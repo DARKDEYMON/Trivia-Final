@@ -27,10 +27,10 @@ router.get("/django/",function(req,res){
 		}
 		query.get("usuario_partida").where({acabada:0}).execute(function(rows){
 				console.log(rows[0]);
-				req.params.username=s.name;
-				sesiones[req.cookies.sessionid]={id:req.params.id,name:s.name};
-				console.log(sesiones[req.cookies.sessionid]);
-				res.render('unirse', { title: 'Chat',sessionid:req.params.id,name:s.name,partidas:rows});
+				//req.params.username=s.name;
+				//sesiones[req.cookies.sessionid]={id:req.params.id,name:s.name};
+				//console.log(sesiones[req.cookies.sessionid]);
+				res.render('unirse', { title: 'Chat',name:s.name,partidas:rows});
 		});
 
 });
@@ -57,7 +57,9 @@ router.get("/sala/:idr?",function(req,res){
 		res.end();
 		return;
 	}
-	console.log(req.params.idr);
+	console.log("dato:"+sesiones[req.cookies.sessionid]);
+	//control si hay espaci tambien nesesario
+	console.log(sesiones[req.cookies.sessionid].name+"  usuario");
 	sesiones[req.cookies.sessionidr]={id:req.params.idr};
 	res.render('saladechatespera', { title: 'Sala de Espera',salaid:req.params.idr});
 });

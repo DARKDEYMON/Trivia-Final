@@ -1,0 +1,49 @@
+{% extends "bases/base_principal.html" %}
+
+{% block title %} 
+    Respuestas
+{% endblock %}
+
+{% block content %}
+     
+
+                    <table class="table table-hover table-responsive table-condensed">
+                            <tr class="active">
+                                <th>
+                                    <h3 style="font-size:x-large"><span style="font-weight:bolder">Usuario</span></h3>
+                                </th>
+                                <th>
+                                    <h3 style="font-size:x-large"><span style="font-weight:bolder">Staff</span></h3>
+                                </th>
+                    
+
+                                <th></th>
+                            </tr>
+                        
+                            {% for i in usuario %}
+                            <tr>
+                                <td class="col-lg-2">
+                                    <span style="font-size: 17px;"> {{ i.username }}</span>
+                                </td>
+                                <td class="col-lg-1">
+                                    <span style="font-size: 17px;"> {{ i.is_staff }}</span>
+                                </td>
+                                
+                                <td class="col-lg-4">
+                                    {% if not i.is_staff %}
+                                    <a href="/user/staff/{{i.id}}">
+                                    <button type="button" class="btn btn-warning col-lg-3" onclick=""><span style="margin-right: 5px" class="glyphicon glyphicon-pencil"></span>Dar Permiso Staff</button></a>
+                                    {% else %}
+                                    <a href="/user/quitarstaf/{{i.id}}">
+                                    <button type="button" class="btn btn-danger col-lg-3" onclick=""><span style="margin-right: 5px" class="glyphicon glyphicon-trash"></span>Borrar del Staff</button></a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                    </table>
+
+
+{% endblock %}
+
+
+

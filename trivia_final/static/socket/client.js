@@ -1,6 +1,7 @@
 $( document ).ready(function() {
     console.log( "ready!" );
     var socket = io('http://localhost:4000');
+    $.so=socket;
     socket.emit("test",{});
     socket.on('test', function(response) {
         console.log(response.conectado);
@@ -12,6 +13,7 @@ $( document ).ready(function() {
         var comienzo=cookies.indexOf("sessionid");
         console.log(leerCookie("sessionid"));
         ajaxresponse("sala",l);
+        socket.emit("sala_juego",{"sala":l,"sessionid":leerCookie("sessionid")});//hola rey
         //socket.on("sala_juego",{"sala":l});
     };
     
